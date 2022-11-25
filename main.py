@@ -6,6 +6,7 @@ chosen_word = random.choice(hangman_words.word_list)
 display = []
 guess = ""
 lives = 6
+
 print(hangman_art.logo)
 
 #For testing purposes but should be removed for user
@@ -19,10 +20,13 @@ for letter in chosen_word:
 def get_user_guess():
   return input("Guess a letter: ").lower()
 
-#run after user makes a guess
+#determines if guess is true, updates display, lives if needed
 def handle_guess(user_guess):
   global lives
   correct_guess = False
+
+  if user_guess in display:
+    return "duplicate"
   
   for idx, letter in enumerate(chosen_word):
     if letter == user_guess:
@@ -41,18 +45,22 @@ def display_result(guess_is_true):
   elif guess_is_true and '_' not in display:
       print("You win!!!")
   elif not guess_is_true and lives > 0:
-    print("Incorrect")
+    print("Incorrect correct, you lose a life.")
     print(hangman_art.stages[lives])
   else:
     print(hangman_art.stages[lives])
-    print("You are dead!")
+    print("Sorry, you are dead!")
     
   
 def run():
   while '_' in display and lives > 0:
     guess = get_user_guess()
     is_correct_guess = handle_guess(guess)
-    display_result(is_correct_guess)
+
+    if is_correct_guess == 'duplicate':
+      print("You have already guessed this. Pick another letter")
+    else:
+      display_result(is_correct_guess)
 
 #initial start
 print(display)
