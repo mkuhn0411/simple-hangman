@@ -9,7 +9,7 @@ lives = 6
 print(hangman_art.logo)
 
 #For testing purposes but should be removed for user
-print(f'Pssst, the solution is {chosen_word}.')
+print(f'The work is {chosen_word}.')
 
 #initially set up guess array
 for letter in chosen_word:
